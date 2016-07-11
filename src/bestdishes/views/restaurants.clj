@@ -9,5 +9,4 @@
    (dishes/display-dishes (:dishes restaurant))])
 
 (defn show [restaurant]
-  (layout/common "bestdishes"
-                 (display-restaurant restaurant)))
+  (layout/common (display-restaurant restaurant)))

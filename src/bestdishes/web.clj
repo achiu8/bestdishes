@@ -5,6 +5,7 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [bestdishes.controllers.dishes :as dishes]
             [bestdishes.controllers.restaurants :as restaurants]
+            [bestdishes.controllers.reviews :as reviews]
             [bestdishes.views.layout :as layout]
             [bestdishes.models.migration :as db])
   (:gen-class))
@@ -12,6 +13,7 @@
 (defroutes routes
   dishes/routes
   restaurants/routes
+  reviews/routes
   (route/resources "/")
   (route/not-found (layout/four-oh-four)))
 

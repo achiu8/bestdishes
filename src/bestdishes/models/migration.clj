@@ -5,7 +5,11 @@
             "postgresql://localhost:5432/bestdishes"))
 
 (def tables
-  {:restaurants [[:id            :serial    "primary key"]
+  {:locations   [[:id            :serial    "primary key"]
+                 [:city          :varchar   "not null"]
+                 [:state         :varchar   "not null"]]
+   :restaurants [[:id            :serial    "primary key"]
+                 [:location_id   :integer   "not null" "references locations (id)"]
                  [:name          :varchar   "not null"]
                  [:created_at    :timestamp "not null" "default current_timestamp"]]
    :dishes      [[:id            :serial    "primary key"]
@@ -13,7 +17,9 @@
                  [:name          :varchar   "not null"]
                  [:created_at    :timestamp "not null" "default current_timestamp"]]
    :reviews     [[:id            :serial    "primary key"]
-                 [:body          :varchar   "not null"]
+                 [:dish_id       :integer   "not null" "references dishes (id)"]
+                 [:rating        :integer   "not null"]
+                 [:content       :text      "not null"]
                  [:created_at    :timestamp "not null" "default current_timestamp"]]
    :categories  [[:id            :serial    "primary key"]
                  [:name          :varchar   "not null"]

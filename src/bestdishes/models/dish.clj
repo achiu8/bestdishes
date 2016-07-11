@@ -9,7 +9,7 @@
   (first (sql/query db ["select * from dishes where id = ?" id])))
 
 (defn by-restaurant-id [id]
-  (sql/query db ["select * from dishes where restaurant_id = ?" id]))
+  (into [] (sql/query db ["select * from dishes where restaurant_id = ?" id])))
 
-(defn create [dish]
-  (sql/insert! db :dishes [:name] [dish]))
+(defn create [name restaurant_id]
+  (sql/insert! db :dishes {:name name :restaurant_id restaurant_id}))
