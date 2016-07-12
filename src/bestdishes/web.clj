@@ -6,6 +6,7 @@
             [bestdishes.controllers.dishes :as dishes]
             [bestdishes.controllers.restaurants :as restaurants]
             [bestdishes.controllers.reviews :as reviews]
+            [bestdishes.controllers.locations :as locations]
             [bestdishes.views.layout :as layout]
             [bestdishes.models.migration :as db])
   (:gen-class))
@@ -14,6 +15,7 @@
   dishes/routes
   restaurants/routes
   reviews/routes
+  locations/routes
   (route/resources "/")
   (route/not-found (layout/four-oh-four)))
 

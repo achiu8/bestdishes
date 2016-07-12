@@ -14,13 +14,16 @@
 (defn show [id]
   (let [dish       (dish/by-id id)
         restaurant (restaurant/by-id (:restaurant_id dish))
+        location   (location/by-id (:location_id restaurant))
         reviews    (review/by-dish-id id)]
     (view/show (assoc dish
                  :restaurant_name (:name restaurant)
+                 :location_id     (:id location)
+                 :location_city   (:city location)
                  :reviews         reviews))))
 
 (defn create [name restaurant_id]
-  (when-not (or (str/blank? name) (nil? restaurant_id))
+  (when-not (str/blank? name)
     (dish/create name restaurant_id))
   (ring/redirect "/"))
 

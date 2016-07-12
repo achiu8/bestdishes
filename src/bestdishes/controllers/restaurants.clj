@@ -12,10 +12,10 @@
     (view/show (assoc restaurant :dishes dishes))))
 
 (defn create [name location_id]
-  (when-not (or (str/blank? name) (nil? location_id))
+  (when-not (str/blank? name)
     (restaurant/create name location_id))
   (ring/redirect "/"))
 
 (defroutes routes
   (GET  "/restaurants/:id" [id] (show (Integer. id)))
-  (POST "/restaurants" [name location_id] (create name (Integer. location_id))))
+  (POST "/restaurants" [name location_id] (show (Integer. location_id))))

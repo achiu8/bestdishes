@@ -1,6 +1,8 @@
 (ns bestdishes.models.location
-  (:require [clojure.java.jdbc :as sql]
-            [bestdishes.models.migration :refer [db]]))
+  (:require [bestdishes.utils.sql :as sql]))
 
 (defn all []
-  (into [] (sql/query db ["select * from locations order by id desc"])))
+  (sql/query-all ["select * from locations order by id desc"]))
+
+(defn by-id [id]
+  (sql/query-first ["select * from locations where id = ?" id]))

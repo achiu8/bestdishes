@@ -44,8 +44,12 @@
 (defn display-dish [dish]
   [:div
    [:h3 (h (:name dish))]
-   [:a {:href (str "/restaurants/" (:restaurant_id dish))}
-    (h (:restaurant_name dish))]
+   [:p
+    [:a {:href (str "/restaurants/" (:restaurant_id dish))}
+     (h (:restaurant_name dish))]]
+   [:p
+    [:a {:href (str "/locations/" (:location_id dish))}
+     (h (:location_city dish))]]
    (reviews/display-reviews (:reviews dish))
    (reviews/review-form (:id dish))])
 

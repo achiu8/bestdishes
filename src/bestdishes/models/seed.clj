@@ -1,6 +1,5 @@
 (ns bestdishes.models.seed
-  (:require [clojure.java.jdbc :as sql]
-            [bestdishes.models.migration :refer [db]]))
+  (:require [bestdishes.utils.sql :as sql]))
 
 (def locations
   [{:city "San Francisco"
@@ -41,31 +40,29 @@
     :restaurant "Grand Harbor"}])
 
 (defn get-id-for-location [city]
-  (-> (sql/query db ["select id from locations where city = ?" city])
-      first :id))
+  (:id (sql/query-first ["select id from locations where city = ?" city])))
 
 (defn get-id-for-restaurant [name]
-  (-> (sql/query db ["select id from restaurants where name = ?" name])
-      first :id))
+  (:id (sql/query-first ["select id from restaurants where name = ?" name])))
 
 (defn seed-locations []
   (doseq [location locations]
-    (sql/insert! db :locations location)))
+    (sql/insert :locations location)))
 
 (defn seed-restaurants []
   (doseq [restaurant restaurants]
     (let [location_id (get-id-for-location (:city restaurant))]
-      (sql/insert! db :restaurants {:name (:name restaurant) :location_id location_id}))))
+      (sql/insert :restaurants {:name (:name restaurant) :location_id location_id}))))
 
 (defn seed-dishes []
   (doseq [dish dishes]
     (let [restaurant_id (get-id-for-restaurant (:restaurant dish))]
-      (sql/insert! db :dishes {:name (:name dish) :restaurant_id restaurant_id}))))
+      (sql/insert :dishes {:name (:name dish) :restaurant_id restaurant_id}))))
 
 (defn seed-categories []
   (let [categories ["Japanese" "Korean" "American" "Italian" "Chinese"]]
     (doseq [category categories]
-      (sql/insert! db :categories {:name category}))))
+      (sql/insert :categories {:name category}))))
 
 (defn seed-all []
   (seed-locations)
