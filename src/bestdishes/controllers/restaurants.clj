@@ -18,4 +18,4 @@
 
 (defroutes routes
   (GET  "/restaurants/:id" [id] (show (Integer. id)))
-  (POST "/restaurants" [name location_id] (show (Integer. location_id))))
+  (POST "/restaurants" [name location_id] (create name (Integer. location_id))))

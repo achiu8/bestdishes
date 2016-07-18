@@ -11,7 +11,9 @@
   (sql/query-all ["select * from dishes where restaurant_id = ?" id]))
 
 (defn by-location-id [id]
-  (sql/query-all ["select d.* from dishes d join restaurants r on d.restaurant_id = r.id where r.location_id = ?" id]))
+  (sql/query-all [(str "select d.* from dishes d join restaurants r "
+                       "on d.restaurant_id = r.id where r.location_id = ?")
+                  id]))
 
 (defn create [name restaurant_id]
   (sql/insert :dishes {:name name :restaurant_id restaurant_id}))

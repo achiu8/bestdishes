@@ -8,8 +8,10 @@
             [bestdishes.models.location :as location]
             [bestdishes.models.review :as review]))
 
-(defn index []
-  (view/index (dish/all) (restaurant/all) (location/all)))
+(defn index [params]
+  (view/index (dish/all)
+              (restaurant/all)
+              (location/all)))
 
 (defn show [id]
   (let [dish       (dish/by-id id)
@@ -28,6 +30,6 @@
   (ring/redirect "/"))
 
 (defroutes routes
-  (GET  "/" [] (index))
+  (GET  "/" {params :params} (index params))
   (POST "/" [name restaurant_id] (create name (Integer. restaurant_id)))
   (GET  "/dishes/:id" [id] (show (Integer. id))))

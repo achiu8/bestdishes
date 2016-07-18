@@ -27,7 +27,7 @@
      [:h4 "Add a Restaurant"]
      (form/form-to [:post "/restaurants"]
                    (anti-forgery/anti-forgery-field)
-                   (form/label :restaurant_id "Where is it?")
+                   (form/label :location_id "Where is it?")
                    (form/drop-down :location_id location-options)
                    (form/label :name "What's the name of the restaurant?")
                    (form/text-field :name)
